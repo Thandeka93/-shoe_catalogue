@@ -37,7 +37,7 @@ app.use(flash());
 
 app.get('/', async function (req, res) {
 
-    const api_allShoes = "";
+    const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
     const allShoes = (await axios.get(api_allShoes)).data;
     console.log(allShoes);
 
