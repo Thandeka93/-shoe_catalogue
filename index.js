@@ -39,12 +39,21 @@ app.get('/', async function (req, res) {
 
     const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
     const allShoes = (await axios.get(api_allShoes)).data;
-    console.log(allShoes);
-
-
     res.render('shop', {
         allShoes
     });
+});
+
+app.post('/filter', async function (req, res) {
+    try {
+        const selectedBrand = req.body.brand;
+        const selectedSize = req.body.size;
+        
+        
+
+    } catch (error) {
+        console.error('Error fetching and filtering shoes:', error);
+    }
 });
 
 const PORT = process.env.PORT || 3008;
