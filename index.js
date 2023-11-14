@@ -49,6 +49,39 @@ app.post('/filter', async function (req, res) {
         const selectedBrand = req.body.brand;
         const selectedSize = req.body.size;
         
+        if (selectedBrand === "default" && selectedSize === "default") {
+            // show all shoes
+            const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
+            const shoesData = (await axios.get(api_allShoes)).data;
+        
+            res.render('shop', {
+                allShoes: shoesData,
+            });
+        } else if (selectedBrand !== "default" && selectedSize === "default") {
+            // filter by brand
+            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}`;
+            const shoesData = (await axios.get(api_brand)).data;
+        
+            res.render('shop', {
+                allShoes: shoesData,
+            });
+        } else if (selectedBrand === "default" && selectedSize !== "default") {
+            // filter by size
+            const api_size = `https://shoes-api-o60a.onrender.com/api/shoes/size/${selectedSize}`;
+            const shoesData = (await axios.get(api_size)).data;
+        
+            res.render('shop', {
+                allShoes: shoesData,
+            });
+        } else {
+            // filter by both brand and size
+            const api_brand_and_size = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/size/${selectedSize}`;
+            const shoesData = (await axios.get(api_brand_and_size)).data;
+        
+            res.render('shop', {
+                allShoes: shoesData,
+            });
+        }
         
 
     } catch (error) {

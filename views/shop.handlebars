@@ -1,12 +1,12 @@
 <body>
     <header>
-      <h1>LUBABALO'S SHOE WONDERLAND</h1>
+        <h1>LUBABALO'S SHOE WONDERLAND</h1>
+
         <nav class="navbar">
             <ul class="nav-links">
                 <button data-quantity="0" class="btn-cart">
                     <svg class="icon-cart" viewBox="0 0 24.38 30.52" height="30.52" width="24.38"
                         xmlns="http://www.w3.org/2000/svg">
-
                         <path transform="translate(-3.62 -0.85)"
                             d="M28,27.3,26.24,7.51a.75.75,0,0,0-.76-.69h-3.7a6,6,0,0,0-12,0H6.13a.76.76,0,0,0-.76.69L3.62,27.3v.07a4.29,4.29,0,0,0,4.52,4H23.48a4.29,4.29,0,0,0,4.52-4ZM15.81,2.37a4.47,4.47,0,0,1,4.46,4.45H11.35a4.47,4.47,0,0,1,4.46-4.45Zm7.67,27.48H8.13a2.79,2.79,0,0,1-3-2.45L6.83,8.34h3V11a.76.76,0,0,0,1.52,0V8.34h8.92V11a.76.76,0,0,0,1.52,0V8.34h3L26.48,27.4a2.79,2.79,0,0,1-3,2.44Zm0,0">
                         </path>
@@ -15,13 +15,12 @@
                 </button>
             </ul>
         </nav>
+
         <hr>
         <br>
-
     </header>
 
     <hr>
-
     <section id="shopnow">
         <form action="/filter" method="post" id="filterForm">
             <div style="border: 3px solid #d2bd97; color: #d2bd97;">
@@ -30,7 +29,7 @@
                 <div class="filter-group">
                     <div class="paste-button">
                         <select id="brandSelect" name="brand">
-                            <option value="default">Select brand</option>
+                            <option value="default">Shoe Brand</option>
                             <option value="Lodi">Lodi</option>
                             <option value="luxe">luxe</option>
                             <option value="Vixens">Vixens</option>
@@ -40,7 +39,7 @@
                             <option value="Diamond Heights">Diamond Heights</option>
                         </select>
                         <select id="sizeSelect" name="size">
-                            <option value="default">Select size</option>
+                            <option value="default">Shoe Size</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>
@@ -52,17 +51,15 @@
                     <button type="submit" id="filterButton">Filter</button>
 
                 </div>
-
-
             </div>
         </form>
+
         <a href="/" class="view-all-link">
             <button type="button">View all</button>
         </a>
 
-
         <div class="allshoesbox" style=" display: grid;
-    grid-template-columns: repeat(3, 2fr); ">
+           grid-template-columns: repeat(3, 2fr); ">
 
             {{#each allShoes}}
             <div class="card">
@@ -92,43 +89,34 @@
         </div>
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add an event listener to the form
-            document.getElementById('filterForm').addEventListener('submit', async function (event) {
-                event.preventDefault(); // Prevent the default form submission behavior
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add an event listener to the form
+        document.getElementById('filterForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
 
-                // form handling logic 
-                const selectedBrand = document.getElementById('brandSelect').value;
-                const selectedSize = document.getElementById('sizeSelect').value;
+            // Your existing AJAX or form handling logic here
+            const selectedBrand = document.getElementById('brandSelect').value;
+            const selectedSize = document.getElementById('sizeSelect').value;
 
-                // Build the API URL based on selected brand and size
-                const api_url = `/filter?brand=${selectedBrand}&size=${selectedSize}`;
+            // Build the API URL based on selected brand and size
+            const api_url = `/filter?brand=${selectedBrand}&size=${selectedSize}`;
 
-                try {
-                    const response = await fetch(api_url);
-                    const data = await response.json();
-                  
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            });
+            try {
+                const response = await fetch(api_url);
+                const data = await response.json();
 
+                // Handle the data as needed
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+
+            // Submit the form after handling the data
+            this.submit();
         });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add an event listener to the form
-            document.getElementById('filterForm').addEventListener('submit', function (event) {
-                // Your existing form handling logic here
+    });
+</script>
 
-            
 
-                // Prevent the default form submission behavior
-                event.preventDefault();
-            });
-
-        });
-    </script>
 
 </body>
