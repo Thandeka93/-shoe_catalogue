@@ -312,3 +312,15 @@ h1{
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
+.adding{
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  background-color: #6c7c59;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: large;
+  margin-bottom: 5px;
+}
