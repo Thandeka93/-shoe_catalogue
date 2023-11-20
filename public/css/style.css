@@ -324,3 +324,11 @@ h1{
   font-size: large;
   margin-bottom: 5px;
 }
+
+.error-message {
+  color: red;
+}
+
+.success-message{
+  color: green;
+}
