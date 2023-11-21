@@ -226,7 +226,7 @@ h1{
   }
   
   .CartBtn:hover .IconContainer {
-    transform: translateX(58px);
+    transform: translateX(43px);
     transition-duration: .5s;
   }
   
