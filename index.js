@@ -36,11 +36,8 @@ app.use(
 app.use(flash());
 
 app.get('/', async function (req, res) {
-
     const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
     const allShoes = (await axios.get(api_allShoes)).data;
-    // console.log(allShoes);
-
     res.render('shop', {
         allShoes,
 
@@ -51,10 +48,19 @@ app.post('/filter', async function (req, res) {
     try {
         const selectedBrand = req.body.brand;
         const selectedSize = req.body.size;
-        const selectedColor = req.body.color
+        const selectedColor = req.body.color;
 
+        // // Check if no filters selected
+        // if (
+        //     selectedBrand === "default" &&
+        //     selectedSize === "default" &&
+        //     selectedColor === "default"
+        // ) {
+        //     req.flash('error', 'Please select at least one filter (brand, size, or color).');
+        //     return res.redirect('/');  // Redirect to the main page 
+        // }
         if (selectedBrand === "default" && selectedSize === "default" && selectedColor === "default") {
-            // Handle case where no brand or size is selected (show all shoes)
+            // show all shoes
             const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
             const shoesData = (await axios.get(api_allShoes)).data;
 
@@ -72,84 +78,70 @@ app.post('/filter', async function (req, res) {
         }
 
 
-        //this is if the user only selects color   
+        //selects color   
         else if (selectedBrand === "default" && selectedSize === "default" && selectedColor !== "default") {
-            // Handle case where only a color is selected (filter by color)
+            // filter by color
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/color/${selectedColor}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
-
-
         }
-        //this is if the user only selects size   
+
+        //selects size   
         else if (selectedBrand === "default" && selectedSize !== "default" && selectedColor === "default") {
-            // Handle case where only a size is selected (filter by size)
+            // filter by size
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/size/${selectedSize}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
-
         }
-
 
         else if (selectedBrand !== "default" && selectedSize === "default" && selectedColor === "default") {
-            // Handle case where only a brand is selected (filter by brand)
+            //filter by brand
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
         }
 
 
-        // user only selects size and color
+        // selects size and color
         else if (selectedBrand === "default" && selectedSize !== "default" && selectedColor !== "default") {
-            // Handle case where only a brand is selected (filter by brand)
+            // filter by size and color
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/size/${selectedSize}/color/${selectedColor}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
         }
-        // user only selects brand and color
+
+        //selects brand and color
         else if (selectedBrand !== "default" && selectedSize === "default" && selectedColor !== "default") {
-            // Handle case where only a brand is selected (filter by brand)
+            //filter by brand and color
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/color/${selectedColor}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
         }
 
-
-
-        // user only selects brand and size
+        // selects brand and size
         else if (selectedBrand !== "default" && selectedSize !== "default" && selectedColor === "default") {
-            // Handle case where only a brand is selected (filter by brand)
+            //filter by brand and size
             const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/size/${selectedSize}`;
             const shoesData = (await axios.get(api_brand)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
         }
 
-
-
-
         else {
-            // Handle case where both brand and size are selected (filter by brand, size,color)
+            //filter by brand, size,color
             const api_brand_and_size = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/size/${selectedSize}/color/${selectedColor}`;
             const shoesData = (await axios.get(api_brand_and_size)).data;
-
             res.render('shop', {
                 allShoes: shoesData,
             });
@@ -160,14 +152,11 @@ app.post('/filter', async function (req, res) {
     }
 });
 
-
-
 app.get('/admin', (req, res) => {
-    res.render('newShoe');
+    res.render('addStock');
 });
 
 app.post('/admin', async (req, res) => {
-
     try {
         let newShoeObject = {
             "color": req.body.color,
@@ -180,25 +169,19 @@ app.post('/admin', async (req, res) => {
         };
 
 
-        // Make a POST request to the external API
+        // POST request to the external API
         const response = await axios.post('https://shoes-api-o60a.onrender.com/api/shoes', newShoeObject);
-        //   console.log(response);
-        // Handle the response from the API.
+        // response from the API.
         if (response.status === 201) {
-            // The shoe was successfully added to the API.
-            // Redirect the user to the shoe catalog page
             res.redirect('/');
         } else {
-            // There was an error adding the shoe to the API.
             res.status(500).send('Error adding shoe: ' + response.statusText);
         }
     } catch (error) {
-        // There was an error making the request to the API.
         res.status(500).send('Error making request: ' + error.message);
     }
 
 });
-    
 
 const PORT = process.env.PORT || 3008;
 
