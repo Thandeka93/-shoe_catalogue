@@ -333,6 +333,66 @@ h1{
   margin-bottom: 5px;
 }
 
+/* Media query for tablets */
+@media (max-width: 768px) {
+  body {
+      font-size: 14px;
+  }
+  .navbar {
+      padding: 10px;
+  }
+  h1 {
+      font-size: 24px;
+  }
+  .btn-cart {
+      width: 40px;
+      height: 40px;
+  }
+  .icon-cart {
+      width: 20px;
+      height: 25px;
+  }
+  .filter-group {
+      flex-direction: column;
+      gap: 10px;
+  }
+  .paste-button {
+      flex-direction: column;
+  }
+  select {
+      width: 100%;
+  }
+}
+
+/* Media query for smaller screens (e.g., mobile phones) */
+@media (max-width: 480px) {
+  body {
+      font-size: 12px;
+  }
+  h1 {
+      font-size: 20px;
+  }
+  .btn-cart {
+      width: 30px;
+      height: 30px;
+  }
+  .icon-cart {
+      width: 15px;
+      height: 20px;
+  }
+  .filter-group {
+      flex-direction: column;
+      gap: 10px;
+  }
+  .paste-button {
+      flex-direction: column;
+  }
+  select {
+      width: 100%;
+  }
+}
+
+
 /* div.message-container {
   position: fixed;
   top: 0;
