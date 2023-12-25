@@ -1,0 +1,94 @@
+<header>
+    <div class="container">
+        <nav>
+            <h1 class="home-btn">LUBABALO'S SHOE WONDERLAND</h1>
+            <div class="menu-section">
+                <div class="user-dropdown">
+                    <div id="user-menu"><span></span> <i class="fa fa-caret-down"></i></div>
+                    <div class="dropdown-content">
+                        <a href="/user/account">Account</a>
+                        <a href="/user/orders">Orders</a>
+                        <a href="/user/wishlist">Wishlist</a>
+                    </div>
+                </div>
+                <div id="logout-btn">Logout</div>
+                <div class="cart-icon-section">
+                    <a href="/cart">
+                        <div class="cart-icon">
+                            <img src="/images/icon/cart.jpg" alt="">
+                        </div>
+                        <div class="cart-icon-badge">0</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <main class="full-bleed">
+        <div id="slideshow-example" data-component="slideshow">
+            <div role="list">
+               
+                <div class="slide">
+                    <img src="/images/shoes/cover.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="overlay">
+        </div>
+        <div class="overlay-text">
+            <h1>Upgrade Your Look with Class</h1>
+            <p>Check out our selection and find the perfect pair of stylish formal shoes 
+                to complement your ambitions and elevate your fashion game.</p>
+            <button id="shop-now-btn">SHOP NOW</button>
+        </div>
+    </main>
+    <div class="full-bleed" id="available-shoes-section">
+        <h2>AVAILABLE SHOES</h2>
+        <div class="filterSection">
+            <div>Filter Results</div>
+            <div>
+                <label for="">Brand:</label>
+                <select name="" id="brandSelect">
+                    <option value="default">Select Brand</option>
+                    <option value="LODI">LODI</option>
+                    <option value="LUXE">LUXE</option>
+                    <option value="STILETTOS">STILETTOS</option>
+                    <option value="DAZZLESTEPS">DAZZLESTEPS</option>
+                    <option value="VIXENS">VIXENS</option>
+                    <option value="DIAMONDHEIGHTS">DIAMONDHEIGHTS</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Colour:</label>
+                <select name="" id="colourSelect">
+                    <option value="default">Select Colour</option>
+                    <option value="Grey">Grey</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Black">Black</option>
+                    <option value="Orange">Orange</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Size:</label>
+                <select name="" id="sizeSelect">
+                    <option value="default">Select Size</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div id="showAllBtn">Show All</div>
+        </div>
+    </div>
+    <section class="full-bleed">
+    </section>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script src="/js/shoe-catalogue-factory.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/user.js"></script>
+<script src="/js/userPageRedirect.js"></script>

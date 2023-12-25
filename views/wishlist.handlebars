@@ -1,0 +1,48 @@
+<header>
+    <div class="container">
+        <nav>
+            <h1 class="home-btn">LUBABALO'S SHOE WONDERLAND</h1>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="cart-menu">
+        <h2 id="account-details-heading">Wishlist</h2>
+        <div class="back-container">
+            <a href="/user">
+                <img src="/images/icons/back.png" alt="">
+                <div id="back-button">Back to Home</div>
+            </a>
+        </div>
+    </div>
+    {{#if wishlistItems }}
+    <section class="wishlist-section">
+        {{#each wishlistItems}}
+        <div class="shoeContainer" data-shoe-id="{{this.id}}">
+            <img src="{{this.img_src}}" alt="" class="shoeImage">
+            <p>{{this.name}}</p>
+            <p class="shoeBrand">{{this.brand}}</p>
+            <div class="sizeAndColourContainer">
+                <p class="shoeSize">Size: <span id="sizeWishlist"> {{this.size}}</span></p>
+                <p class="shoeColour">Colour: <span id="colourWishlist">{{this.colour}}</span></p>
+            </div>
+            <p class="shoePrice">R{{this.price}}</p>
+            <p class="shoeStock">{{this.in_stock}} in stock</p>
+            <div class="centeredBtnContainer">
+                <button class="removeFromWishlistBtn">REMOVE FROM WISHLIST</button>
+            </div>
+        </div>
+        {{/each}}
+    </section>
+    {{else}}
+    <div class="wishlist-message-centered">
+        <div id="empty-wishlist-message">Your wishlist is empty</div>
+        <div>
+            <img src="/images/icons/empty-wishlist.jpg" alt="">
+        </div>
+    </div>
+    {{/if}}
+</div>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script src="/js/wishlist.js"></script>
+<script src="/js/userPageRedirect.js"></script>

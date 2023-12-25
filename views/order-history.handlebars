@@ -1,0 +1,70 @@
+<header>
+    <div class="container">
+        <nav>
+            <h1 class="home-btn">LUBABALO'S SHOE WONDERLAND</h1>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="cart-menu">
+        <h2 id="account-details-heading">Orders</h2>
+        <div class="back-container">
+            <a href="/user">
+                <img src="/images/icons/back.png" alt="">
+                <div id="back-button">Back to Home</div>
+            </a>
+        </div>
+    </div>
+    <div>
+        {{#if sortedOrders}}
+        <div class="cart-items">
+            {{#each sortedOrders}}
+            <div class="order-item">
+                <div class="order-title-container">
+                    <div id="order-heading">Order: #{{this.[0].order_number}}</div>
+                    <div id="date-heading">Ordered on: {{this.[0].timestamp}}</div>
+                </div>
+                {{#each this}}
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="{{this.img_src}}" alt="">
+                    </div>
+                    <div class="cart-item-info">
+                        <p>{{this.name}}</p>
+                        <p>{{this.brand}}</p>
+                        <div class="cart-size-colour-item">
+                            <p>Size: <span id="sizeOrders">{{this.size}}</span></p>
+                            <p>Colour: <span id="colourOrders">{{this.colour}}</span></p>
+                        </div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <p>Quantity</p>
+                        <p>{{this.quantity}}</p>
+                    </div>
+                    <div class="cart-item-price">
+                        <p>R{{this.price}}</p>
+                        <p>Subtotal: R{{this.subtotal}}</p>
+                    </div>
+                </div>
+                {{/each}}
+                {{#with (lookup ../grandTotalArr @index)}}
+                <div class="order-total-container">
+                    <div id="order-total-heading">Total</div>
+                    <div id="order-total-amount">R{{grandtotal}}</div>
+                </div>
+                {{/with}}
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="orders-message-centered">
+            <div id="no-orders-message">You have not placed any orders</div>
+            <div>
+               
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+<script src="/js/orders.js"></script>
+<script src="/js/userPageRedirect.js"></script>

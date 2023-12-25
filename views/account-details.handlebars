@@ -1,0 +1,48 @@
+<header>
+    <div class="container">
+        <nav>
+            <h1 class="home-btn">LUBABALO'S SHOE WONDERLAND</h1>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="cart-menu">
+        <h2 id="account-details-heading">Account Details</h2>
+        <div class="back-container">
+            <a href="/user">
+                <img src="/images/icons/back.png" alt="">
+                <div id="back-button">Back to Home</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="account-details-section">
+        <div class="name-section">
+            <label>Name: </label><input type="text" id="name-field" disabled value="{{ this.data.name }}">
+            <small id="edit-name">edit</small>
+        </div>
+        <div class="surname-section">
+            <label>Surname:</label><input type="text" id="surname-field" disabled value="{{ this.data.surname }}">
+            <small id="edit-surname">edit</small>
+        </div>
+        <div class="email-section">
+            <label>Email:</label><input type="text" id="email-field" disabled value="{{ this.data.email }}">
+        </div>
+        <div class="address-section">
+            <label>Address:</label><input type="text" id="address-field" disabled value="{{ this.data.address }}">
+            <small id="edit-address">edit</small>
+        </div>
+        <div class="phone-number-section">
+            <label>Phone number:</label><input type="text" id="phone-number-field" disabled
+                value="{{ this.data.phone_number }}">
+            <small id="edit-phone-number">edit</small>
+        </div>
+    </div>
+    <div id="account-update-message" class="hidden">
+        <div>Account details have been updated</div>
+        <div id="account-update-notice">*If you have updated your account name, log out and back in for it to reflect on your profile</div>
+    </div>
+</div>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script src="/js/account.js"></script>
+<script src="/js/userPageRedirect.js"></script>

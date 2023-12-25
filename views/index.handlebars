@@ -1,0 +1,146 @@
+<header>
+    <div class="container">
+        <nav>
+            <h1><a href="/">LUBABALO'S SHOE WONDERLAND</a></h1>
+            <div class="menu-section">
+                <div id="login-btn">Login</div>
+                <div id="signup-btn">Sign Up</div>
+                <div class="add-shoe"><a href="/add">Add Shoe</a></div>
+                <div class="cart-icon-section">
+                        <div class="cart-icon">
+                            <img src="/images/icon/cart.jpg" alt="">
+                        </div>
+                        <div class="cart-icon-badge">0</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <main class="full-bleed">
+        <div id="slideshow-example" data-component="slideshow">
+            <div role="list">
+                
+                 <div class="slide">
+                    <img src="/images/shoes/cover.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="overlay">
+        </div>
+
+        <div class="overlay-text">
+            <h1>Upgrade Your Look with Class</h1>
+            <p>Check out our selection and find the perfect pair of stylish formal shoes 
+                to complement your ambitions and elevate your fashion game.</p>
+            <button id="shop-now-btn">SHOP NOW</button>
+        </div>
+
+    </main>
+    <div class="full-bleed" id="available-shoes-section">
+        <h2>AVAILABLE SHOES</h2>
+        <div class="filterSection">
+            <div>Filter Results</div>
+            <div>
+                <label for="">Brand:</label>
+                <select name="" id="brandSelect">
+                    <option value="default">Select Brand</option>
+                    <option value="LODI">LODI</option>
+                    <option value="LUXE">LUXE</option>
+                    <option value="STILETTOS">STILETTOS</option>
+                    <option value="DAZZLESTEPS">DAZZLESTEPS</option>
+                    <option value="VIXENS">VIXENS</option>
+                    <option value="DIAMONDHEIGHTS">DIAMONDHEIGHTS</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Colour:</label>
+                <select name="" id="colourSelect">
+                    <option value="default">Select Colour</option>
+                    <option value="Grey">Grey</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Black">Black</option>
+                    <option value="Orange">Orange</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Size:</label>
+                <select name="" id="sizeSelect">
+                    <option value="default">Select Size</option>
+                    
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    
+                </select>
+            </div>
+            <div id="showAllBtn">Show All</div>
+        </div>
+    </div>
+    <section class="full-bleed">
+    </section>
+    <div class="modal-overlay hidden"></div>
+    <div class="login-form-container hidden">
+        <div id="close-login-form">x</div>
+        <div id="login-heading">
+            <h1>Login</h1>
+        </div>
+        <form action="/login" method="POST">
+            <div>
+                <label for="">Email</label>
+            </div>
+            <input type="text" name="email" id="login-email">
+            <div>
+                <label for="">Password</label>
+            </div>
+            <input type="password" name="password" id="login-password">
+            <button type="submit">Login</button>
+        </form>
+        <div id="login-error-msg" class="hidden"></div>
+    </div>
+    <div class="signup-form-container hidden">
+        <div id="close-signup-form">x</div>
+        <div id="signup-heading">
+            <h1>Sign Up</h1>
+        </div>
+        <form action="/signup" method="POST">
+            <div>
+                <label for="">Name</label>
+            </div>
+            <input type="text" name="name" id="signup-name">
+            <div>
+                <label for="">Surname</label>
+            </div>
+            <input type="text" name="surname" id="signup-surname">
+            <div>
+                <label for="">Address</label>
+            </div>
+            <input type="text" name="address" id="signup-address">
+            <div>
+                <label for="">Phone number</label>
+            </div>
+            <input type="text" name="phoneNumber" id="signup-phone-number">
+            <div>
+                <label for="">Email</label>
+            </div>
+            <input type="text" name="email" id="signup-email">
+            <div>
+                <label for="">Password</label>
+            </div>
+            <input type="password" name="password" id="signup-password">
+            <div>
+                <label for="">Confirm Password</label>
+            </div>
+            <input type="password" name="confirmPassword" id="signup-confirm-password">
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="signup-error-msg" class="hidden"></div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script src="/js/shoe-catalogue-factory.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/main.js"></script>

@@ -2,11 +2,24 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import bodyParser from 'body-parser';
 import flash from 'express-flash';
+import pgPromise from 'pg-promise';
 import session from 'express-session';
 import Handlebars from 'handlebars';
 import axios from 'axios';
+import ShoeCatalogueService from "./services/shoe-catalogue-service.js";
+import ShoeCatalogueRoutes from "./routes/shoe-catalogue-routes.js";
 
 const app = express();
+
+// Define the database connection string
+const connectionString = process.env.PGDATABASE_URL ||
+  'postgres://ffehhsbo:YyHLTsa2u0655sfda9kbW9RkykoxTOfL@dumbo.db.elephantsql.com/ffehhsbo'
+
+// Create a PostgreSQL database instance and connect to it
+const pgp = pgPromise();
+const db = pgp(connectionString);
+
+
 
 app.engine(
     'handlebars',
@@ -35,153 +48,60 @@ app.use(
 
 app.use(flash());
 
-app.get('/', async function (req, res) {
-    const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
-    const allShoes = (await axios.get(api_allShoes)).data;
-    res.render('shop', {
-        allShoes,
+const shoeCatalogueService = ShoeCatalogueService(db);
+const shoeCatalogueRoutes = ShoeCatalogueRoutes(shoeCatalogueService);
 
-    });
-});
+app.get("/", (req, res) => {
+    res.render("index")
+})
 
-app.post('/filter', async function (req, res) {
-    try {
-        const selectedBrand = req.body.brand;
-        const selectedSize = req.body.size;
-        const selectedColor = req.body.color;
+app.get("/add", (req, res) => {
+    res.render("addShoe")
+})
 
-        // // Check if no filters selected
-        // if (
-        //     selectedBrand === "default" &&
-        //     selectedSize === "default" &&
-        //     selectedColor === "default"
-        // ) {
-        //     req.flash('error', 'Please select at least one filter (brand, size, or color).');
-        //     return res.redirect('/');  // Redirect to the main page 
-        // }
-        if (selectedBrand === "default" && selectedSize === "default" && selectedColor === "default") {
-            // show all shoes
-            const api_allShoes = "https://shoes-api-o60a.onrender.com/api/shoes";
-            const shoesData = (await axios.get(api_allShoes)).data;
+app.get("/user", (req, res) => {
+    res.render("user")
+})
 
-            res.render('shop', {
-                allShoes: shoesData,
-            });
+app.post("/user", shoeCatalogueRoutes.addToCart)
 
-            if (!shoesData || shoesData.length === 0) {
-                // No shoes found for the selected brand or size
-                return res.render('shop', {
-                    allShoes: [],
-                    message: 'No shoes found for the selected brand or size.',
-                });
-            }
-        }
+app.post("/login", shoeCatalogueRoutes.loginUser)
 
+app.post("/signup", shoeCatalogueRoutes.signupUser)
 
-        //selects color   
-        else if (selectedBrand === "default" && selectedSize === "default" && selectedColor !== "default") {
-            // filter by color
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/color/${selectedColor}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.get("/signup/success", (req, res) => {
+    res.render("signup-success")
+})
 
-        //selects size   
-        else if (selectedBrand === "default" && selectedSize !== "default" && selectedColor === "default") {
-            // filter by size
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/size/${selectedSize}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.get("/cart", (req, res) => {
+    res.render("cart")
+})
 
-        else if (selectedBrand !== "default" && selectedSize === "default" && selectedColor === "default") {
-            //filter by brand
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.post("/cart", shoeCatalogueRoutes.getCart)
 
+app.delete("/cart/:id", shoeCatalogueRoutes.removeFromCart)
 
-        // selects size and color
-        else if (selectedBrand === "default" && selectedSize !== "default" && selectedColor !== "default") {
-            // filter by size and color
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/size/${selectedSize}/color/${selectedColor}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.delete("/cart", shoeCatalogueRoutes.removeCart)
 
-        //selects brand and color
-        else if (selectedBrand !== "default" && selectedSize === "default" && selectedColor !== "default") {
-            //filter by brand and color
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/color/${selectedColor}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.post("/cart/update/:id", shoeCatalogueRoutes.updateCart)
 
-        // selects brand and size
-        else if (selectedBrand !== "default" && selectedSize !== "default" && selectedColor === "default") {
-            //filter by brand and size
-            const api_brand = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/size/${selectedSize}`;
-            const shoesData = (await axios.get(api_brand)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.post("/cart/total", shoeCatalogueRoutes.getCartTotal)
 
-        else {
-            //filter by brand, size,color
-            const api_brand_and_size = `https://shoes-api-o60a.onrender.com/api/shoes/brand/${selectedBrand}/size/${selectedSize}/color/${selectedColor}`;
-            const shoesData = (await axios.get(api_brand_and_size)).data;
-            res.render('shop', {
-                allShoes: shoesData,
-            });
-        }
+app.post("/cart/checkout", shoeCatalogueRoutes.updateCartCheckout)
 
-    } catch (error) {
-        console.error('Error fetching and filtering shoes:', error);
-    }
-});
+app.get("/cart/checkout/success", shoeCatalogueRoutes.checkoutSuccess)
 
-app.get('/admin', (req, res) => {
-    res.render('addStock');
-});
+app.get("/user/account", shoeCatalogueRoutes.accountDetails)
 
-app.post('/admin', async (req, res) => {
-    try {
-        let newShoeObject = {
-            "color": req.body.color,
-            "brand": req.body.brand,
-            "price": Number(req.body.price),
-            "size": Number(req.body.size),
-            "in_stock": Number(req.body.in_stock),
-            "image_url": req.body.img_url
-            ,
-        };
+app.post("/user/account/update", shoeCatalogueRoutes.updateAccount)
 
+app.get("/user/wishlist", shoeCatalogueRoutes.wishlist)
 
-        // POST request to the external API
-        const response = await axios.post('https://shoes-api-o60a.onrender.com/api/shoes', newShoeObject);
-        // response from the API.
-        if (response.status === 201) {
-            res.redirect('/');
-        } else {
-            res.status(500).send('Error adding shoe: ' + response.statusText);
-        }
-    } catch (error) {
-        res.status(500).send('Error making request: ' + error.message);
-    }
+app.post("/user/wishlist", shoeCatalogueRoutes.addToWishlist)
 
-});
+app.post("/user/wishlist/update/:id", shoeCatalogueRoutes.updateWishlist)
+
+app.get("/user/orders", shoeCatalogueRoutes.orderHistory)
 
 const PORT = process.env.PORT || 3008;
 
